@@ -9,12 +9,15 @@ import UIKit
 import CoreData
 
 class StartViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     @IBOutlet weak var upcomingEventsTable: UITableView!
     @IBOutlet weak var miniEventsView: UIView!
     @IBOutlet weak var miniCalendarView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var daysCollectionView: UICollectionView!
     private let viewModel = StartViewModel()
+    private var daysForMiniCalendar: [Int] = []
+    private var today: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +26,8 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
         daysCollectionView.dataSource = self
         daysCollectionView.delegate = self
         if let layout = daysCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 0
+            layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = 1
             layout.minimumInteritemSpacing = 0
             layout.sectionInset = .zero
         }
@@ -36,8 +39,24 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
         miniEventsView.layer.borderWidth = 2
         miniEventsView.layer.borderColor = UIColor.gray.cgColor
         miniEventsView.layer.cornerRadius = 20
-        daysCollectionView.layer.borderWidth = 2
+        daysCollectionView.layer.borderWidth = 1
+        daysCollectionView.backgroundColor = .black
+        today = viewModel.prepareDayandMonthName().day
+        monthLabel.text = viewModel.prepareDayandMonthName().month
         title = "Daily Planner"
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: UIFont(name: "ChalkboardSE-Bold", size: 24)!,
+        ]
+    }
+    
+    @IBAction func miniCalendarViewTapped(_ sender: UITapGestureRecognizer) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Calendar") as? CalendarViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @IBAction func upcomingEventsViewTapped(_ sender: UITapGestureRecognizer) {
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,17 +98,30 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        daysForMiniCalendar = viewModel.prepareDaysForCells()
         return 21
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Day", for: indexPath)
-        cell.layer.borderWidth = 1
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Day", for: indexPath) as? MiniCalendarCell {
+            cell.dayLabel.text = String(daysForMiniCalendar[indexPath.item])
+            if daysForMiniCalendar[indexPath.item] == today {
+                cell.backgroundColor = .systemBlue
+            }
+            else if daysForMiniCalendar[indexPath.item] < today - 6 {
+                cell.backgroundColor = .systemGray5
+            }
+            else {
+                cell.backgroundColor = .white
+            }
+            
+            return cell
+        }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width / 7
+        let width = floor(collectionView.bounds.width / 7)
         let height = floor(collectionView.bounds.height / 3)
         return CGSize(width: width, height: height)
     }

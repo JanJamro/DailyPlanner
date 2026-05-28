@@ -8,5 +8,5 @@
 import UIKit
 
 class MiniCalendarCell: UICollectionViewCell {
-    
+    @IBOutlet weak var dayLabel: UILabel!
 }
