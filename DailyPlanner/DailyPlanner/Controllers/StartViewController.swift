@@ -110,6 +110,7 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             else if daysForMiniCalendar[indexPath.item] < today - 6 {
                 cell.backgroundColor = .systemGray5
+                cell.dayLabel.layer.opacity = 0.3
             }
             else {
                 cell.backgroundColor = .white

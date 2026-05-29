@@ -14,10 +14,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var monthLabel: UILabel!
     let viewModel = CalendarViewModel()
     let weekdaysShort = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-    var currentDay: Int!
-    var currentMonth: Int!
     var currentMonthName: String!
-    var currentYear: Int!
+    var today: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +23,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         calendarCollectionView.dataSource = self
         weekdaysCollectionView.delegate = self
         weekdaysCollectionView.dataSource = self
-        currentDay = viewModel.getCurrentDateParts().day
-        currentMonth = viewModel.getCurrentDateParts().month
-        currentMonthName = viewModel.getCurrentDateParts().monthName
-        currentYear = viewModel.getCurrentDateParts().year
+        today = Calendar.current.component(.day, from: viewModel.currentDate)
         
-        title = String(currentYear)
-        monthLabel.text = currentMonthName
+        title = String(viewModel.yearForCalendar)
+        monthLabel.text = viewModel.monthForCalendarName
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent))
         if let layout = calendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
@@ -46,8 +41,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             layout.minimumInteritemSpacing = 0
             layout.sectionInset = .zero
         }
+        
         calendarCollectionView.layer.borderWidth = 1
         calendarCollectionView.backgroundColor = .black
+        calendarCollectionView.bounces = false
     }
     
     @objc func addEvent() {
@@ -55,16 +52,22 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @IBAction func moveToNextMonth(_ sender: UIButton) {
-        
+        viewModel.changeMonth(upwards: true)
+        monthLabel.text = self.viewModel.monthForCalendarName
+        title = String(self.viewModel.yearForCalendar)
+        calendarCollectionView.reloadData()
     }
     
     @IBAction func moveToPreviousMonth(_ sender: UIButton) {
-        
+        viewModel.changeMonth(upwards: false)
+        monthLabel.text = self.viewModel.monthForCalendarName
+        title = String(self.viewModel.yearForCalendar)
+        calendarCollectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == calendarCollectionView {
-            return 42
+            return viewModel.calendarDays.count
         }
         return 7
     }
@@ -72,7 +75,22 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == calendarCollectionView {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Day", for: indexPath) as? FullCalendarCell {
-                cell.backgroundColor = .white
+                let day = viewModel.calendarDays[indexPath.item]
+                cell.dayLabel.text = String(Calendar.current.component(.day, from: day.date))
+                if Calendar.current.isDate(day.date, inSameDayAs: Date()) {
+                    cell.backgroundColor = .systemBlue
+                    cell.dayLabel.layer.opacity = 1
+                }
+                else {
+                    if day.isCurrentMonth {
+                        cell.backgroundColor = .white
+                        cell.dayLabel.layer.opacity = 1
+                    }
+                    else {
+                        cell.backgroundColor = .systemGray5
+                        cell.dayLabel.layer.opacity = 0.3
+                    }
+                }
                 return cell
             }
             return UICollectionViewCell()
@@ -82,6 +100,15 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == calendarCollectionView {
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "DayDetail") as? DayDetailViewController {
+                vc.date = viewModel.calendarDays[indexPath.item].date
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

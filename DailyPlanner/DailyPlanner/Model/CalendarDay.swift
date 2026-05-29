@@ -10,5 +10,5 @@ import Foundation
 struct CalendarDay {
     let date: Date
     let events: [Event]
-    let currentMonth: Bool
+    let isCurrentMonth: Bool
 }

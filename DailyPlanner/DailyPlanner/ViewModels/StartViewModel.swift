@@ -11,6 +11,7 @@ import CoreData
 class StartViewModel {
     private let CDManager = CoreDataManagement.shared
     var upcomingEventsFetchRequestController: NSFetchedResultsController<Event>!
+    private let calendar = Calendar.current
     
     init() {
         let request = CDManager.createUpcomingEventsFetchRequest()
@@ -28,17 +29,12 @@ class StartViewModel {
     func prepareDaysForCells() -> [Int] {
         var days: [Int] = []
         let today = Date()
-        let callendar = Calendar.current
-        var weekday = callendar.component(.weekday, from: today)-2
+        var weekday = calendar.component(.weekday, from: today)-2
         if weekday == -1 { weekday = 6 }
-        for dayNum in 0..<weekday {
-            let newDay = callendar.date(byAdding: .day, value: -weekday + dayNum, to: today)
-            days.append(callendar.component(.day, from: newDay!))
-        }
-        let remainingSpots = 21 - days.count
-        for dayNum in 0..<remainingSpots {
-            let nextDay = callendar.date(byAdding: .day, value: dayNum, to: today)
-            let dayNumber = callendar.component(.day, from: nextDay!)
+        let firstDateInGrid = calendar.date(byAdding: .day, value: -weekday, to: today)
+        for dayNum in 0..<21 {
+            let nextDay = calendar.date(byAdding: .day, value: dayNum, to: firstDateInGrid!)
+            let dayNumber = calendar.component(.day, from: nextDay!)
             days.append(dayNumber)
         }
         
@@ -47,7 +43,6 @@ class StartViewModel {
     
     func prepareDayandMonthName () -> (day: Int, month: String) {
         let date = Date()
-        let calendar = Calendar.current
         let month = calendar.component(.month, from: date)
         let day = calendar.component(.day, from: date)
         

@@ -354,6 +354,21 @@
             </objects>
             <point key="canvasLocation" x="1228" y="34"/>
         </scene>
+        <!--Day Detail View Controller-->
+        <scene sceneID="9rM-cV-aTl">
+            <objects>
+                <viewController storyboardIdentifier="DayDetail" id="eor-pf-X2k" customClass="DayDetailViewController" customModule="DailyPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kRL-xh-rcf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jbL-Rf-UnS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s00-5W-gz5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1927" y="34"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="AO5-Lt-gbC">
             <objects>
