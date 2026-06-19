@@ -33,6 +33,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             layout.minimumLineSpacing = 1
             layout.minimumInteritemSpacing = 0
             layout.sectionInset = .zero
+            layout.estimatedItemSize = .zero
         }
         
         if let layout = weekdaysCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -47,8 +48,16 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         calendarCollectionView.bounces = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.generateMonth()
+        calendarCollectionView.reloadData()
+    }
+    
     @objc func addEvent() {
-        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "EventManagement") as? EventAddingViewController {
+            vc.titleText = "Create new event"
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func moveToNextMonth(_ sender: UIButton) {
@@ -77,6 +86,13 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Day", for: indexPath) as? FullCalendarCell {
                 let day = viewModel.calendarDays[indexPath.item]
                 cell.dayLabel.text = String(Calendar.current.component(.day, from: day.date))
+                let events = day.events
+                if !events.isEmpty {
+                    cell.eventsDot.isHidden = false
+                }
+                else {
+                    cell.eventsDot.isHidden = true
+                }
                 if Calendar.current.isDate(day.date, inSameDayAs: Date()) {
                     cell.backgroundColor = .systemBlue
                     cell.dayLabel.layer.opacity = 1
@@ -106,6 +122,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         if collectionView == calendarCollectionView {
             if let vc = storyboard?.instantiateViewController(withIdentifier: "DayDetail") as? DayDetailViewController {
                 vc.date = viewModel.calendarDays[indexPath.item].date
+                vc.events = viewModel.calendarDays[indexPath.item].events
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -121,5 +138,16 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         let width = floor(collectionView.bounds.width / 7)
         let height = collectionView.bounds.height
         return CGSize(width: width, height: height)
+    }
+    
+    override func viewWillTransition(
+        to size: CGSize,
+        with coordinator: UIViewControllerTransitionCoordinator
+    ) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { _ in
+            self.calendarCollectionView.collectionViewLayout.invalidateLayout()
+        })
     }
 }

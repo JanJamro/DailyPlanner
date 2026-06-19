@@ -41,6 +41,7 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
         miniEventsView.layer.cornerRadius = 20
         daysCollectionView.layer.borderWidth = 1
         daysCollectionView.backgroundColor = .black
+        daysCollectionView.bounces = false
         today = viewModel.prepareDayandMonthName().day
         monthLabel.text = viewModel.prepareDayandMonthName().month
         title = "Daily Planner"
@@ -56,7 +57,9 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func upcomingEventsViewTapped(_ sender: UITapGestureRecognizer) {
-        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "UpcomingEvents") as? UpcomingEventsViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,6 +128,10 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
         let width = floor(collectionView.bounds.width / 7)
         let height = floor(collectionView.bounds.height / 3)
         return CGSize(width: width, height: height)
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<any NSFetchRequestResult>) {
+        upcomingEventsTable.reloadData()
     }
 
 }

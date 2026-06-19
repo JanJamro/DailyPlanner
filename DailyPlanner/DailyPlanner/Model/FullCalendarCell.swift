@@ -8,14 +8,10 @@
 import UIKit
 
 class FullCalendarCell: UICollectionViewCell {
-    @IBOutlet weak var eventsStackView: UIStackView!
+    @IBOutlet weak var eventsDot: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
-        eventsStackView.arrangedSubviews.forEach {
-            $0.removeFromSuperview()
-        }
     }
 }

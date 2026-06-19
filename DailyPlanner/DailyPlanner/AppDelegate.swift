@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if count == 0 {
                 let CDManager = CoreDataManagement.shared
                 let eventsList = ["Sport", "Buissness", "Study", "Health", "Personal", "Errands", "Travel", "Other"]
-                let iconsList = ["dumbbell.fill", "birefcase.fill", "book.closed.fill", "heart", "person.circle", "house.fill", "airplane.departure", "questionmark.message.fill" ]
+                let iconsList = ["dumbbell.fill", "briefcase.fill", "book.closed.fill", "heart", "person.circle", "house.fill", "airplane.departure", "questionmark.message.fill" ]
                 CDManager.createAndSaveDefaultEventTypes(eventsList, icons: iconsList)
             }
         }

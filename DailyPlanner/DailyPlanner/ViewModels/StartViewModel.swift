@@ -17,13 +17,7 @@ class StartViewModel {
         let request = CDManager.createUpcomingEventsFetchRequest()
         upcomingEventsFetchRequestController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CDManager.context, sectionNameKeyPath: nil, cacheName: nil)
         upcomingEventsFetchRequestController.fetchRequest.fetchLimit = 5
-        
-        do {
-            try upcomingEventsFetchRequestController.performFetch()
-        }
-        catch {
-            print("Failed to fetch upcoming events: \(error)")
-        }
+        fetchUpcomingEvents()
     }
     
     func prepareDaysForCells() -> [Int] {
@@ -50,5 +44,14 @@ class StartViewModel {
         let monthName = formatter.monthSymbols[month-1]
         
         return (day, monthName)
+    }
+    
+    func fetchUpcomingEvents() {
+        do {
+            try upcomingEventsFetchRequestController.performFetch()
+        }
+        catch {
+            print("Failed to fetch upcoming events: \(error)")
+        }
     }
 }
