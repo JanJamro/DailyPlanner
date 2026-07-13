@@ -30,10 +30,9 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent))
         if let layout = calendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 1
+            layout.minimumLineSpacing = 0.5
             layout.minimumInteritemSpacing = 0
             layout.sectionInset = .zero
-            layout.estimatedItemSize = .zero
         }
         
         if let layout = weekdaysCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -107,6 +106,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
                         cell.dayLabel.layer.opacity = 0.3
                     }
                 }
+                cell.layer.borderWidth = 0.3
                 return cell
             }
             return UICollectionViewCell()

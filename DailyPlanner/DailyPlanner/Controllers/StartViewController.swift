@@ -27,7 +27,7 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
         daysCollectionView.delegate = self
         if let layout = daysCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 1
+            layout.minimumLineSpacing = 0.5
             layout.minimumInteritemSpacing = 0
             layout.sectionInset = .zero
         }
@@ -118,7 +118,7 @@ class StartViewController: UIViewController, UITableViewDataSource, UITableViewD
             else {
                 cell.backgroundColor = .white
             }
-            
+            cell.layer.borderWidth = 0.3
             return cell
         }
         return UICollectionViewCell()

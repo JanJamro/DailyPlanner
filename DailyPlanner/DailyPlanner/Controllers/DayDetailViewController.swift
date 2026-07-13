@@ -12,6 +12,7 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var dateLabel: UILabel!
     var date: Date!
     var events: [Event] = []
+    var hoursDetailArray: [HourDetail?] = Array(repeating: nil, count: 24)
     var fetchNeeded = false
     var viewModel: DayDetailViewModel!
     let hoursStart = ["0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
@@ -34,6 +35,7 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             events = viewModel.getEvents()
             hoursTableView.reloadData()
             fetchNeeded = false
+            print("fetch done")
         }
     }
     
@@ -74,6 +76,7 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "Hour", for: indexPath) as? HoursCell {
+            var hourDetail = HourDetail(hour: hoursStart[indexPath.row], events: [])
             for event in events {
                 var timeStart, timeEnd : Int
                 let hourStart = viewModel.timeInMinutesFromString(timeString: hoursStart[indexPath.row])
@@ -99,6 +102,7 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
                     
                 }
                 else {
+                    hourDetail.events.append(event)
                     if cell.eventLabelsCounter < 3 {
                         let label = UILabel()
                         label.text = "●"
@@ -117,7 +121,7 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
                         cell.previousEventlabel = label
                         cell.eventLabelsCounter += 1
                     }
-                    else {
+                    else if cell.eventLabelsCounter < 4 {
                         let label = UILabel()
                         cell.contentView.addSubview(label)
                         label.text = "..."
@@ -125,15 +129,24 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
                         label.topAnchor.constraint(equalTo: cell.previousEventlabel!.topAnchor).isActive = true
                         label.leadingAnchor.constraint(equalTo: cell.previousEventlabel!.trailingAnchor, constant: 5).isActive = true
                         label.textColor = .black
-                        break;
                     }
                 }
             }
+            hoursDetailArray[indexPath.row] = hourDetail
             cell.previousEventlabel = nil
             cell.eventLabelsCounter = 0
             cell.hourStartLabel.text = hoursStart[indexPath.row]
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "HourDetailVC") as? HourDetailViewController {
+            vc.hourDetail = hoursDetailArray[indexPath.row]
+            vc.day = dateLabel.text!
+            vc.dayVC = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

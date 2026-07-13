@@ -45,6 +45,13 @@ class UpcomingEventsViewController: UIViewController, NSFetchedResultsController
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "EventDetail") as? EventDetailViewController {
+            vc.event = viewModel.upcomingEventsFetchController.object(at: indexPath)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"

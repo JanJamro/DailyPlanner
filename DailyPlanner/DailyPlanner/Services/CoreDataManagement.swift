@@ -124,4 +124,14 @@ class CoreDataManagement {
         }
         return eventTypeNames
     }
+    
+    func deleteEvent(_ event: Event) {
+        context.delete(event)
+        do {
+            try context.save()
+        }
+        catch {
+            print("Unable to save with error: \(error)")
+        }
+    }
 }
