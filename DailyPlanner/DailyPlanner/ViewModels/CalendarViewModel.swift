@@ -35,13 +35,13 @@ class CalendarViewModel {
             numberOfDaysFromPreviousMonth = 6
         }
         let firstDateInGrid = calendar.date(byAdding: .day, value: -numberOfDaysFromPreviousMonth, to: firstOfMonth!)!
-        let lastDateInGrid = calendar.date(byAdding: .day, value: 41, to: firstDateInGrid)!
+        let lastDateInGrid = calendar.date(byAdding: .day, value: 42, to: firstDateInGrid)!
         eventsForMonth = CDManager.fetchEventsForMonth(dateStartFrom: firstDateInGrid, dateStartTo: lastDateInGrid)
         
         for day in 0..<42 {
             if let newDay = calendar.date(byAdding: .day, value: day, to: firstDateInGrid) {
                 let isCurrentMonth = calendar.component(.month, from: newDay) == calendar.component(.month, from: currentDate)
-                let dayEvents = eventsForMonth.filter({$0.dateStartDay! <= newDay && $0.dateEnd! >= newDay
+                let dayEvents = eventsForMonth.filter({$0.dateStartDay! <= newDay && $0.dateEnd! > newDay
                 })
                 let calendarDay = CalendarDay(date: newDay, events: dayEvents, isCurrentMonth: isCurrentMonth)
                 calendarDays.append(calendarDay)

@@ -60,7 +60,6 @@ class DayDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         date = viewModel.date
         events = viewModel.getEvents()
         formatDateAndUpdateView()
-        print("moved date to: \(date!)")
     }
     
     private func formatDateAndUpdateView() {
