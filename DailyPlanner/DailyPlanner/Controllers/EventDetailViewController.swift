@@ -29,7 +29,10 @@ class EventDetailViewController: UIViewController {
         formatter.dateFormat = "'To:' dd-MM-yyyy 'at' HH:mm"
         dateStartLabel.text = formatter.string(from: event.dateStart!)
         dateEndLabel.text = formatter.string(from: event.dateEnd!)
-        //dolozyc zdjecia, mape itd
+        let image = viewModel.readImage()
+        if let image = image {
+            categoryImageView.image = image
+        }
     }
     
     @objc func deleteEvent() {

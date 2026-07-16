@@ -4,7 +4,7 @@
 //
 //  Created by Jan on 02/06/2026.
 //
-import Foundation
+import UIKit
 
 class EventAddingViewModel {
     let CDManager = CoreDataManagement.shared
@@ -33,5 +33,21 @@ class EventAddingViewModel {
     
     func createEvent() {
         CDManager.createNewEvent(dateStart: startDate, dateEnd: endDate, categoryName: categoryName, description: description, imagePath: imagePath, address: address, longitude: longitude, latitude: latitude)
+    }
+    
+    func savePhotoOnDeviceAndReturnFileName(image: UIImage) -> String? {
+        if let data = image.jpegData(compressionQuality: 0.8) {
+            let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let imageName = UUID().uuidString
+            let path = documents.appendingPathComponent(imageName)
+            do {
+                try data.write(to: path)
+            }
+            catch {
+                print("Unable to save image to path")
+            }
+            return imageName
+        }
+        return nil
     }
 }

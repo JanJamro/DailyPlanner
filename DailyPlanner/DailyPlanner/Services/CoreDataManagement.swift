@@ -81,7 +81,7 @@ class CoreDataManagement {
         event.address = address
         event.longitude = longitude ?? 0.0
         event.latitude = latitude ?? 0.0
-        //event.imagePath
+        event.imagePath = imagePath
         
         let dateStartDay = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: dateStart))!
         event.dateStartDay = dateStartDay

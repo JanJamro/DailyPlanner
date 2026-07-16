@@ -943,6 +943,7 @@
                         <outlet property="descriptionTextView" destination="FpG-Fu-US7" id="IRn-wb-Dfg"/>
                         <outlet property="endDatePicker" destination="XIt-bc-8dq" id="boB-2B-kxA"/>
                         <outlet property="locationAddressLabel" destination="hc0-7m-VMY" id="ujE-Gu-ozx"/>
+                        <outlet property="photoAddingButton" destination="a0k-ni-zB2" id="laP-6E-jyS"/>
                         <outlet property="startDatePicker" destination="G8r-ga-b0E" id="aXZ-y3-uXk"/>
                     </connections>
                 </viewController>

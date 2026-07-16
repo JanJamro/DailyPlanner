@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import PhotosUI
 
-class EventAddingViewController: UIViewController {
+class EventAddingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var locationAddressLabel: UILabel!
     @IBOutlet weak var categorySelectionButton: UIButton!
+    @IBOutlet weak var photoAddingButton: UIButton!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     var viewModel: EventAddingViewModel!
     var titleText: String!
+    var photoFileName: String?
     var startDate: Date? {
         didSet {
             if endDate != nil {
@@ -62,6 +65,9 @@ class EventAddingViewController: UIViewController {
         viewModel.description = descriptionTextView.text
         viewModel.categoryName = categorySelectionButton.currentTitle
         viewModel.address = locationAddressLabel.text
+        if let photoFileName = photoFileName {
+            viewModel.imagePath = photoFileName
+        }
         //lat,long,imgpath do dorobienia
         viewModel.createEvent()
         if let dayVC = dayVC {
@@ -99,6 +105,55 @@ class EventAddingViewController: UIViewController {
     }
     
     @IBAction func photosAdding(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Add photo from:", message: nil, preferredStyle: .actionSheet)
         
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .camera
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .images
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true)
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage {
+            if let photoFileName = viewModel.savePhotoOnDeviceAndReturnFileName(image: image) {
+                self.photoFileName = photoFileName
+                photoAddingButton.titleLabel?.text = "Photo added"
+            }
+        }
+        
+        dismiss(animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        if let result = results.first {
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, _ in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            if let photoFileName = self?.viewModel.savePhotoOnDeviceAndReturnFileName(image: image) {
+                                self?.photoFileName = photoFileName
+                                self?.photoAddingButton.titleLabel?.text = "Photo added"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        dismiss(animated: true)
     }
 }
