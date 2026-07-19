@@ -112,6 +112,7 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
             let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .camera
             imagePicker.delegate = self
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true)
         }))
         
@@ -131,7 +132,8 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
         if let image = info[.editedImage] as? UIImage {
             if let photoFileName = viewModel.savePhotoOnDeviceAndReturnFileName(image: image) {
                 self.photoFileName = photoFileName
-                photoAddingButton.titleLabel?.text = "Photo added"
+                self.photoAddingButton.setTitle("Photo added", for: .normal)
+                print("Photo added")
             }
         }
         
@@ -146,7 +148,7 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
                         DispatchQueue.main.async {
                             if let photoFileName = self?.viewModel.savePhotoOnDeviceAndReturnFileName(image: image) {
                                 self?.photoFileName = photoFileName
-                                self?.photoAddingButton.titleLabel?.text = "Photo added"
+                                self?.photoAddingButton.setTitle("Photo added", for: .normal)
                             }
                         }
                     }
