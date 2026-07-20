@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -950,6 +951,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gq-BL-xvu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2574.8091603053435" y="33.802816901408455"/>
+        </scene>
+        <!--Location Choosing View Controller-->
+        <scene sceneID="jUK-3n-iwu">
+            <objects>
+                <viewController storyboardIdentifier="LocationChoosing" id="J83-GT-Grb" customClass="LocationChoosingViewController" customModule="DailyPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GVj-WE-StA">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eD0-lJ-Brm">
+                                <rect key="frame" x="0.0" y="124" width="440" height="64"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="J83-GT-Grb" id="j1c-1R-MVh"/>
+                                </connections>
+                            </searchBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lGw-fm-j83">
+                                <rect key="frame" x="0.0" y="188" width="440" height="700"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vMw-m4-pH6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eD0-lJ-Brm" firstAttribute="leading" secondItem="vMw-m4-pH6" secondAttribute="leading" id="7LR-9P-8A7"/>
+                            <constraint firstItem="vMw-m4-pH6" firstAttribute="trailing" secondItem="eD0-lJ-Brm" secondAttribute="trailing" id="8ST-g7-93i"/>
+                            <constraint firstItem="lGw-fm-j83" firstAttribute="leading" secondItem="vMw-m4-pH6" secondAttribute="leading" id="Kv5-ea-afg"/>
+                            <constraint firstItem="eD0-lJ-Brm" firstAttribute="top" secondItem="vMw-m4-pH6" secondAttribute="top" id="MMD-cE-w2T"/>
+                            <constraint firstItem="vMw-m4-pH6" firstAttribute="bottom" secondItem="lGw-fm-j83" secondAttribute="bottom" id="NCA-O9-myC"/>
+                            <constraint firstItem="lGw-fm-j83" firstAttribute="top" secondItem="eD0-lJ-Brm" secondAttribute="bottom" id="YHd-nr-QkT"/>
+                            <constraint firstItem="vMw-m4-pH6" firstAttribute="trailing" secondItem="lGw-fm-j83" secondAttribute="trailing" id="akV-qQ-mJ2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="lGw-fm-j83" id="CP8-tg-wnl"/>
+                        <outlet property="searchBar" destination="eD0-lJ-Brm" id="xkJ-1k-fpT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4le-qF-dtH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3245" y="34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AO5-Lt-gbC">

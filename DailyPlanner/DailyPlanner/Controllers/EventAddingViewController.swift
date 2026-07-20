@@ -57,6 +57,10 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
             actions.append(action)
         }
         categorySelectionButton.menu = UIMenu(children: actions)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     @objc func saveEvent() {
@@ -101,7 +105,9 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func pickLocation(_ sender: UIButton) {
-        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "LocationChoosing") as? LocationChoosingViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func photosAdding(_ sender: UIButton) {
@@ -157,5 +163,9 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         dismiss(animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
