@@ -22,11 +22,19 @@ class LocationChoosingViewController: UIViewController, UISearchBarDelegate, MKL
         searchCompleter.resultTypes = .address
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if resultsTableView.isHidden {
             resultsTableView.isHidden = false
+        }
+        else if searchText.isEmpty {
+            resultsTableView.isHidden = true
         }
         searchCompleter.queryFragment = searchText
     }
@@ -57,5 +65,28 @@ class LocationChoosingViewController: UIViewController, UISearchBarDelegate, MKL
         title = searchResults[indexPath.row].title
         searchBar.text = searchResults[indexPath.row].title
         resultsTableView.isHidden = true
+        
+        let request = MKLocalSearch.Request(completion: searchResults[indexPath.row])
+        request.naturalLanguageQuery = searchResults[indexPath.row].title + " " + searchResults[indexPath.row].subtitle
+        
+        let search = MKLocalSearch(request: request)
+        search.start { [weak self] response, error in
+            guard let mapItem = response?.mapItems.first else { return }
+            
+            let coordinate = mapItem.placemark.coordinate
+            let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            self?.mapView.setRegion(region, animated: true)
+            self?.mapView.removeAnnotations(self!.mapView.annotations)
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = mapItem.name
+            self?.mapView.addAnnotation(annotation)
+        }
+        
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

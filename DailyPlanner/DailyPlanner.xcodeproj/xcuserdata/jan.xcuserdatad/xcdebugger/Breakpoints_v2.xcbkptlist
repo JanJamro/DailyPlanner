@@ -3,4 +3,154 @@
    uuid = "10A2E742-193E-497C-9681-C748C060B70F"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DailyPlanner/Controllers/LocationChoosingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "LocationChoosingViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33 - 1675b7d9f6106894"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.searchResults.getter : Swift.Array&lt;__C.MKLocalSearchCompletion&gt;"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33 - c1ea257b2ff1b360"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.searchResults.setter : Swift.Array&lt;__C.MKLocalSearchCompletion&gt;"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33 - 171591473dfc90e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.searchResults.modify : Swift.Array&lt;__C.MKLocalSearchCompletion&gt;"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16">
+               </Location>
+               <Location
+                  uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33 - 7b6750a0dff8ea40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; DailyPlanner.LocationChoosingViewController"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16">
+               </Location>
+               <Location
+                  uuid = "8951F9D5-5E87-49E1-A8DD-2368EF673D33 - 8860564344edc39d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;DailyPlanner.LocationChoosingViewController&gt;"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A66B7DE8-B5C4-4655-AC7C-FF145411293F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DailyPlanner/Controllers/LocationChoosingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "LocationChoosingViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "A66B7DE8-B5C4-4655-AC7C-FF145411293F - 3cc3fe179a65ffdd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.searchCompleter.getter : __C.MKLocalSearchCompleter"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "A66B7DE8-B5C4-4655-AC7C-FF145411293F - 7b6750a0dff8ea2f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; DailyPlanner.LocationChoosingViewController"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15">
+               </Location>
+               <Location
+                  uuid = "A66B7DE8-B5C4-4655-AC7C-FF145411293F - 8860564344edc3f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DailyPlanner.LocationChoosingViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;DailyPlanner.LocationChoosingViewController&gt;"
+                  moduleName = "DailyPlanner.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jan/Documents/repos/DailyPlanner/DailyPlanner/DailyPlanner/Controllers/LocationChoosingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
