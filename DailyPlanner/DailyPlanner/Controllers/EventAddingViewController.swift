@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import MapKit
 
 class EventAddingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -16,6 +17,8 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var photoAddingButton: UIButton!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     var viewModel: EventAddingViewModel!
+    var locationMapItem: MKMapItem?
+    var address: String?
     var titleText: String!
     var photoFileName: String?
     var startDate: Date? {
@@ -63,16 +66,23 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
         view.addGestureRecognizer(tap)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(locationAddressLabel.text!)
+    }
+    
     @objc func saveEvent() {
         viewModel.startDate = startDate!
         viewModel.endDate = endDate!
         viewModel.description = descriptionTextView.text
         viewModel.categoryName = categorySelectionButton.currentTitle
-        viewModel.address = locationAddressLabel.text
+        viewModel.address = address
+        print(locationAddressLabel.text ?? "")
         if let photoFileName = photoFileName {
             viewModel.imagePath = photoFileName
         }
-        //lat,long,imgpath do dorobienia
+        viewModel.latitude = locationMapItem?.placemark.coordinate.latitude
+        viewModel.longitude = locationMapItem?.placemark.coordinate.longitude
         viewModel.createEvent()
         if let dayVC = dayVC {
             dayVC.fetchNeeded = true;
@@ -106,6 +116,7 @@ class EventAddingViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func pickLocation(_ sender: UIButton) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "LocationChoosing") as? LocationChoosingViewController {
+            vc.eventAddingVC = self
             navigationController?.pushViewController(vc, animated: true)
         }
     }
