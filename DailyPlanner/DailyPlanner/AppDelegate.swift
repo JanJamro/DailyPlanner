@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 CDManager.createAndSaveDefaultEventTypes(eventsList, icons: iconsList)
             }
         }
+        
+        let notification = UserNotificationsManager.shared
+        notification.requestAuthorization()
         return true
     }
 

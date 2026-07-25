@@ -8,6 +8,7 @@ import UIKit
 
 class EventAddingViewModel {
     let CDManager = CoreDataManagement.shared
+    let UNManager = UserNotificationsManager.shared
     var startDate: Date!
     var endDate: Date!
     var description: String?
@@ -32,7 +33,8 @@ class EventAddingViewModel {
     }
     
     func createEvent() {
-        CDManager.createNewEvent(dateStart: startDate, dateEnd: endDate, categoryName: categoryName, description: description, imagePath: imagePath, address: address, longitude: longitude, latitude: latitude)
+        let event = CDManager.createNewEvent(dateStart: startDate, dateEnd: endDate, categoryName: categoryName, description: description, imagePath: imagePath, address: address, longitude: longitude, latitude: latitude)
+        UNManager.createNotificationsForEvent(event)
     }
     
     func savePhotoOnDeviceAndReturnFileName(image: UIImage) -> String? {

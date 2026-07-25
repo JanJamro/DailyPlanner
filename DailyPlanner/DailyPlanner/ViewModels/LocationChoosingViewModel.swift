@@ -20,7 +20,7 @@ class LocationChoosingViewModel {
     func save() {
         eventAddingVC.locationMapItem = selectedMapItem
         if let placemark = selectedMapItem?.placemark {
-            eventAddingVC.address = placemark.thoroughfare! + " " + (placemark.subThoroughfare ?? "") + ", " + placemark.locality! + ", " + placemark.country!
+            eventAddingVC.address = placemark.thoroughfare! + " " + (placemark.subThoroughfare ?? "") + ", " + (placemark.locality ?? "") + ", " + placemark.country!
         }
         eventAddingVC.locationAddressLabel.text = eventAddingVC.address
     }

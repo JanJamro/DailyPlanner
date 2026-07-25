@@ -10,11 +10,13 @@ import CoreData
 class EventDetailViewModel {
     var event: Event
     let CDManager = CoreDataManagement.shared
+    let UNManager = UserNotificationsManager.shared
     init(event: Event) {
         self.event = event
     }
     
     func deleteEvent() {
+        UNManager.deleteNotificationForEvent(event)
         CDManager.deleteEvent(event)
     }
     

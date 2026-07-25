@@ -24,11 +24,6 @@ class CoreDataManagement {
             newEventType.iconName = icon
         }
         
-        /*let testEvent = Event(context: context)
-        testEvent.dateStart = Date()+3600
-        testEvent.dateEnd = Date()+7200
-        testEvent.eventDescription = "Test Event"*/
-        
         do {
             try context.save()
         }
@@ -73,8 +68,9 @@ class CoreDataManagement {
         return events
     }
     
-    func createNewEvent(dateStart: Date, dateEnd: Date, categoryName: String, description: String?, imagePath: String?, address: String?, longitude: Double?, latitude: Double?) {
+    func createNewEvent(dateStart: Date, dateEnd: Date, categoryName: String, description: String?, imagePath: String?, address: String?, longitude: Double?, latitude: Double?) -> Event {
         let event = Event(context: context)
+        event.id = UUID()
         event.dateStart = dateStart
         event.dateEnd = dateEnd
         event.eventDescription = description
@@ -100,6 +96,7 @@ class CoreDataManagement {
         catch {
             print("Unable to save with error: \(error)")
         }
+        return event
     }
     
     func fetchEventTypes() {
