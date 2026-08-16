@@ -42,7 +42,7 @@ class CoreDataManagement {
     
     func fetchEventsForMonth(dateStartFrom: Date, dateStartTo: Date) -> [Event] {
         let request = Event.fetchRequest()
-        request.predicate = NSPredicate(format: "dateStart > %@ AND dateStart < %@ OR dateEnd > %@ AND dateEnd < %@", dateStartFrom as NSDate, dateStartTo as NSDate, dateStartFrom as NSDate, dateStartTo as NSDate)
+        request.predicate = NSPredicate(format: "dateStart > %@ AND dateStart < %@ OR dateEnd > %@ AND dateEnd < %@ OR dateStart < %@ AND dateEnd > %@", dateStartFrom as NSDate, dateStartTo as NSDate, dateStartFrom as NSDate, dateStartTo as NSDate, dateStartFrom as NSDate, dateStartTo as NSDate)
         request.sortDescriptors = [NSSortDescriptor(key: "dateStart", ascending: true)]
         var events: [Event] = []
         do {
